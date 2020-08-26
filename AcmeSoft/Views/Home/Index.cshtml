@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div id="main" v-cloak>
+        <div class="text-center">
+            @*This should be broken into components*@
+
+            <h1 class="display-4">Employee Maintenance</h1>
+            <div>
+                <table class="outer-table">
+                    <thead>
+                        <tr>
+                            <th>Lastname</th>
+                            <th>Firstname</th>
+                            <th>Birthday </th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="person in people.data">
+                        <tr>
+                            <td>{{person.firstName}}</td>
+                            <td>{{person.lastName}}</td>
+                            <td>{{person.birthDate}}</td>
+                            <td>
+                                <button class="btn btn-primary endbtn" v-bind:id="person.personId" v-on:click="addEmployeeToPerson(person)">Add Employee</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <table class="inner-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee Num</th>
+                                            <th>Employed Date</th>
+                                            <th>Terminated Date </th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-for="employee in person.employees">
+                                        <tr>
+                                            <td>{{employee.employeeNum}}</td>
+                                            <td>{{employee.employedDate}}</td>
+                                            <td>{{employee.terminatedDate}}</td>
+                                            <td>
+                                                <button class="btn btn-primary endbtn" v-bind:id="person.personId" v-on:click="editEmployee(employee)">Edit</button>
+                                                <button class="btn btn-primary endbtn" v-bind:id="person.personId" v-on:click="deleteEmployee(employee)">Delete</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="employeeEditContainer" class="card">
+                <div class="card-header">
+                    Add/Update Employee
+                    <button class="btn btn-danger btn-close" v-on:click="hideCard()">X</button>
+                </div>
+                <div class="card-body d-flex">
+                    <div>
+                        <input type="text" v-model="employee.employeeNum" class="form-control" id="employeeEmployeeName" placeholder="Employee num">
+                    </div>
+                    <div>
+                        <input type="text" v-model="employee.employedDate" class="form-control" id="employeeEmployedDate" placeholder="Employed date">
+                    </div>
+                    <div>
+                        <input type="text" v-model="employee.terminatedDate" class="form-control" id="terminatedDate" placeholder="Terminated date">
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary" v-on:click="addUpdateEmployee()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
